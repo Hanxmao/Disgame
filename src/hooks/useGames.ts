@@ -2,10 +2,17 @@ import { useState, useEffect } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
+export interface Platform {
+    id: number
+    name: string
+    slug: "pc" | "playstation" | "xbox" | "nintendo" | "mac" | "linux" | "ios" | "web" | "android"; 
+}
+
 export interface Game {
   id: number;
   name: string;
-  background_image: string
+  background_image: string;
+  parent_platforms: {platform: Platform}[]
 }
 
 interface GameFetched {
