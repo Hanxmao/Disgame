@@ -33,7 +33,7 @@ interface GameFetched {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -45,9 +45,9 @@ const useGames = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setIsLoading(false);
-        if (err instanceof CanceledError) return;
-        setError(err.message);
+          if (err instanceof CanceledError) return;
+          setError(err.message);
+          setIsLoading(false);
       });
 
     return () => controller.abort();
