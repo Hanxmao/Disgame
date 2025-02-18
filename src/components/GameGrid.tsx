@@ -4,20 +4,21 @@ import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 import { Genre } from "../hooks/useGenres";
+import { Platform } from "../hooks/usePlatforms";
 
 type Props = {
     selectedGenre: Genre | null
+    selectedPlatform: Platform | null
 }
 
-const GameGrid = ({selectedGenre}:Props) => {
-  const { data, error, isLoading } = useGames(selectedGenre);
+const GameGrid = ({selectedGenre, selectedPlatform}:Props) => {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
 
   return (
     <>
       {error && <Text>{error}</Text>}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
-        px="10px"
         spacing={3}
       >
         {isLoading &&
