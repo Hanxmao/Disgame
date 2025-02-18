@@ -7,7 +7,7 @@ const Navbar = () => {
     <HStack justifyContent="space-between" paddingInline='10px' >
       <HStack>
         <FaGamepad size={50} />
-        <Text>DisGame</Text>
+        <Text fontSize={22} fontWeight={'bold'}>DisGame</Text>
       </HStack>
       <ColorModeSwitch />
     </HStack>
