@@ -1,5 +1,5 @@
 import { useColorModeValue } from '@chakra-ui/react'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { FaFaceFrown, FaFaceGrin, FaFaceGrinStars } from 'react-icons/fa6'
 
 type Props = {
