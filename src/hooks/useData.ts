@@ -1,8 +1,8 @@
 import { AxiosRequestConfig, CanceledError } from "axios";
 import { useEffect, useState } from "react";
-import apiClient from "../services/api-client";
+import { axiosInstance } from "../services/api-client";
 
-interface DataFetched<T> {
+export interface DataFetched<T> {
   count: number;
   results: T[];
 }
@@ -17,7 +17,7 @@ const useData = <T>(endpoint:string, requestConfig?:AxiosRequestConfig, deps?: a
     const controller = new AbortController();
     setIsLoading(true);
 
-    apiClient
+    axiosInstance
       .get<DataFetched<T>>(endpoint, { signal: controller.signal, ...requestConfig })
       .then((res) => {
         setData(res.data.results);

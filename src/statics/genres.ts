@@ -1,4 +1,6 @@
-export default [
+export default {
+  count: 19,
+  results: [
     {
       "id": 4,
       "name": "Action",
@@ -133,3 +135,4 @@ export default [
       "image_background": "https://media.rawg.io/media/games/3af/3af386b6e26be6741b711ae6215ef42f.jpg",
     }
   ]
+}
