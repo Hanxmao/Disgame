@@ -1,21 +1,6 @@
 import { GameQuery } from "../App";
+import { Platform } from "../services/platform-service";
 import useData from "./useData";
-import { Platform } from "./usePlatforms";
-
-export interface IconPlatform {
-  id: number;
-  name: string;
-  slug:
-    | "pc"
-    | "playstation"
-    | "xbox"
-    | "nintendo"
-    | "mac"
-    | "linux"
-    | "ios"
-    | "web"
-    | "android";
-}
 
 export interface Game {
   id: number;
@@ -26,12 +11,17 @@ export interface Game {
   rating_top: number;
 }
 
-const useGames = (
-  gameQuery: GameQuery
-) =>
+const useGames = (gameQuery: GameQuery) =>
   useData<Game>(
     "/games",
-    { params: { genres: gameQuery.genre?.id, parent_platforms: gameQuery.platform?.id, ordering: gameQuery.sort, search: gameQuery.search } },
+    {
+      params: {
+        genres: gameQuery.genre?.id,
+        parent_platforms: gameQuery.platform?.id,
+        ordering: gameQuery.sort,
+        search: gameQuery.search,
+      },
+    },
     [gameQuery]
   );
 

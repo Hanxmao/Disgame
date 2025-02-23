@@ -1,5 +1,11 @@
-import { DataFetched } from "../hooks/useData";
-import { Genre } from "../hooks/useGenres";
-import ApiClient from "./api-client";
+import ApiClient, { DataFetched } from "./api-client";
 
-export default new ApiClient<DataFetched<Genre>>('/genres')
+export interface Genre {
+  id: number;
+  name: string;
+  slug: string;
+  games_count: number;
+  image_background: string;
+}
+
+export default new ApiClient<DataFetched<Genre>>("/genres");
