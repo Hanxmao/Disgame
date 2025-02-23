@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
-import { IconPlatform } from "../hooks/useGames";
+import { IconPlatform } from "../services/platform-service";
 
 type Props = {
   platforms: IconPlatform[];

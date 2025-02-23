@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { GameQuery } from "../App";
 
 export interface DataFetched<T> {
   count: number;

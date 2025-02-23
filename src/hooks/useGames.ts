@@ -1,28 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
 import { GameQuery } from "../App";
-import { Platform } from "../services/platform-service";
-import useData from "./useData";
+import { axiosInstance, DataFetched } from "../services/api-client";
+import { Game } from "../services/game-service";
 
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-}
+const getGames = async (gameQuery: GameQuery) => {
+  const res = await axiosInstance.get<DataFetched<Game>>("/games", {
+    params: {
+      genres: gameQuery.genre?.id,
+      parent_platforms: gameQuery.platform?.id,
+      ordering: gameQuery.sort,
+      search: gameQuery.search,
+    },
+  });
+  return res.data;
+};
 
 const useGames = (gameQuery: GameQuery) =>
-  useData<Game>(
-    "/games",
-    {
-      params: {
-        genres: gameQuery.genre?.id,
-        parent_platforms: gameQuery.platform?.id,
-        ordering: gameQuery.sort,
-        search: gameQuery.search,
-      },
-    },
-    [gameQuery]
+  useQuery<DataFetched<Game>, Error>(
+    ["games", gameQuery], 
+    () => getGames(gameQuery), 
   );
 
 export default useGames;
