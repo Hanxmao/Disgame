@@ -14,7 +14,7 @@ type Props = {
 const GameGrid = ({ gameQuery }: Props) => {
   const { isLoading, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
-      ["games"],
+      ["games", gameQuery],
       async ({ pageParam = 1 }) => {
         const res = axiosInstance.get<DataFetched<Game>>("/games", {
           params: {
@@ -62,6 +62,7 @@ const GameGrid = ({ gameQuery }: Props) => {
         onClick={() => {
           fetchNextPage();
         }}
+        mt={4}
       >
         {isFetchingNextPage ? "Loading..." : "Load More"}
       </Button>
