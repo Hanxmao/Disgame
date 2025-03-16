@@ -3,6 +3,8 @@ import { GameQuery } from "../App";
 
 export interface DataFetched<T> {
   count: number;
+  next?: string;
+  previous?:string;
   results: T[];
 }
 
