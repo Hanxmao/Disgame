@@ -7,8 +7,8 @@ const useGames = (gameQuery: GameQuery) =>
   useQuery<DataFetched<Game>, Error>(["games", gameQuery], () =>
     gameService.getAll({
       params: {
-        genres: gameQuery.genre?.id,
-        parent_platforms: gameQuery.platform?.id,
+        genres: gameQuery.genreId,
+        parent_platforms: gameQuery.platformId,
         ordering: gameQuery.sort,
         search: gameQuery.search,
       },

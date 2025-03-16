@@ -13,10 +13,10 @@ import getCroppedImageUrl from "../services/image-url";
 
 type Props = {
   onSelectGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenreId: number | null;
 };
 
-const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
+const GenreList = ({ onSelectGenre, selectedGenreId }: Props) => {
   const { data, error, isLoading } = useGenres();
 
   if (error) return null;
@@ -36,7 +36,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
                 onSelectGenre(g);
               }}
               borderRadius={10}
-              backgroundColor={g.id === selectedGenre?.id ? "green.500" : ""}
+              backgroundColor={g.id === selectedGenreId? "green.500" : ""}
             >
               <Image
                 objectFit="cover"
@@ -46,7 +46,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
               ></Image>
               <Button
                 whiteSpace={"normal"}
-                fontWeight={g.id === selectedGenre?.id ? "bold" : "normal"}
+                fontWeight={g.id === selectedGenreId ? "bold" : "normal"}
                 variant="link"
                 fontSize="md"
               >

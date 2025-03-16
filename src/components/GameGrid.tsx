@@ -19,8 +19,8 @@ const GameGrid = ({ gameQuery }: Props) => {
       async ({ pageParam = 1 }) => {
         const res = axiosInstance.get<DataFetched<Game>>("/games", {
           params: {
-            genres: gameQuery.genre?.id,
-            parent_platforms: gameQuery.platform?.id,
+            genres: gameQuery.genreId,
+            parent_platforms: gameQuery.platformId,
             ordering: gameQuery.sort,
             search: gameQuery.search,
             page: pageParam,
