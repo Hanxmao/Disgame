@@ -1,5 +1,6 @@
-import { Button, SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import InifiniteScroll from "react-infinite-scroll-component";
 import { GameQuery } from "../App";
 import { axiosInstance, DataFetched } from "../services/api-client";
 import { Game } from "../services/game-service";
@@ -38,7 +39,12 @@ const GameGrid = ({ gameQuery }: Props) => {
     );
 
   return (
-    <>
+    <InifiniteScroll
+      dataLength={data?.pages.length || 0}
+      next={fetchNextPage}
+      hasMore={!!hasNextPage}
+      loader={<Spinner />}
+    >
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
         spacing={6}
@@ -57,16 +63,7 @@ const GameGrid = ({ gameQuery }: Props) => {
           ))
         )}
       </SimpleGrid>
-      <Button
-        disabled={!hasNextPage}
-        onClick={() => {
-          fetchNextPage();
-        }}
-        mt={4}
-      >
-        {isFetchingNextPage ? "Loading..." : "Load More"}
-      </Button>
-    </>
+    </InifiniteScroll>
   );
 };
 
