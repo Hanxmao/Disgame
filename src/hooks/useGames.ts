@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { GameQuery } from "../App";
 import { DataFetched } from "../services/api-client";
 import gameService, { Game } from "../services/game-service";
+import { GameQuery } from "../stores/gameQueryStore";
 
 const useGames = (gameQuery: GameQuery) =>
   useQuery<DataFetched<Game>, Error>(["games", gameQuery], () =>
