@@ -8,31 +8,24 @@ import PlatformSelecter from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
 import { Genre } from "./services/genre-service";
 import { Platform } from "./services/platform-service";
+import useGameQueryStore from "./stores/gameQueryStore";
 
-export interface GameQuery {
-  genreId: number | null;
-  platformId: number | null;
-  sort: string;
-  search: string;
-}
+
 
 function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  const {gameQuery, update} = useGameQueryStore()
 
   const onSelectGenre = (genre: Genre) => {
-    setGameQuery({ ...gameQuery, genreId: genre.id });
+    update( {genreId: genre.id} );
   };
   const onSelectPlatform = (platform: Platform) => {
-    setGameQuery({ ...gameQuery, platformId: platform.id });
+    update({ platformId: platform.id });
   };
 
   const onSelectSort = (sort: string) => {
-    setGameQuery({ ...gameQuery, sort });
+    update({ sort });
   };
 
-  const onSearch = (search: string) => {
-    setGameQuery({ ...gameQuery, search });
-  };
 
   return (
     <Grid
@@ -46,7 +39,7 @@ function App() {
       }}
     >
       <GridItem area={"nav"}>
-        <Navbar onSearch={onSearch} />
+        <Navbar />
       </GridItem>
       <Show above="lg">
         <GridItem px={2} area={"aside"}>
