@@ -5,16 +5,12 @@ import GenreList from "./components/GenreList";
 import Navbar from "./components/Navbar";
 import PlatformSelecter from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-import { Genre } from "./services/genre-service";
 import { Platform } from "./services/platform-service";
 import useGameQueryStore from "./stores/gameQueryStore";
 
 function App() {
   const { gameQuery, update } = useGameQueryStore();
 
-  const onSelectGenre = (genre: Genre) => {
-    update({ genreId: genre.id });
-  };
   const onSelectPlatform = (platform: Platform) => {
     update({ platformId: platform.id });
   };
@@ -35,10 +31,7 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem px={2} area={"aside"}>
-          <GenreList
-            selectedGenreId={gameQuery.genreId}
-            onSelectGenre={onSelectGenre}
-          ></GenreList>
+          <GenreList />
         </GridItem>
       </Show>
       <GridItem px="10px" area={"main"}>

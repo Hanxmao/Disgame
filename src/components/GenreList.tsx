@@ -5,18 +5,14 @@ import {
   Image,
   List,
   ListItem,
-  Spinner
+  Spinner,
 } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
-import { Genre } from "../services/genre-service";
 import getCroppedImageUrl from "../services/image-url";
+import useGameQueryStore from "../stores/gameQueryStore";
 
-type Props = {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenreId: number | null;
-};
-
-const GenreList = ({ onSelectGenre, selectedGenreId }: Props) => {
+const GenreList = () => {
+  const { update, gameQuery } = useGameQueryStore();
   const { data, error, isLoading } = useGenres();
 
   if (error) return null;
@@ -33,10 +29,10 @@ const GenreList = ({ onSelectGenre, selectedGenreId }: Props) => {
             <HStack
               cursor={"pointer"}
               onClick={() => {
-                onSelectGenre(g);
+                update({ genreId: g.id });
               }}
               borderRadius={10}
-              backgroundColor={g.id === selectedGenreId? "green.500" : ""}
+              backgroundColor={g.id === gameQuery.genreId ? "green.500" : ""}
             >
               <Image
                 objectFit="cover"
@@ -46,7 +42,7 @@ const GenreList = ({ onSelectGenre, selectedGenreId }: Props) => {
               ></Image>
               <Button
                 whiteSpace={"normal"}
-                fontWeight={g.id === selectedGenreId ? "bold" : "normal"}
+                fontWeight={g.id === gameQuery.genreId ? "bold" : "normal"}
                 variant="link"
                 fontSize="md"
               >
