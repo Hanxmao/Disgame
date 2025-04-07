@@ -5,11 +5,8 @@ import GenreList from "./components/GenreList";
 import Navbar from "./components/Navbar";
 import PlatformSelecter from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-import useGameQueryStore from "./stores/gameQueryStore";
 
 function App() {
-  const { gameQuery } = useGameQueryStore();
-
   return (
     <Grid
       templateAreas={{
@@ -30,12 +27,12 @@ function App() {
         </GridItem>
       </Show>
       <GridItem px="10px" area={"main"}>
-        <GameHeading gameQuery={gameQuery} />
+        <GameHeading />
         <HStack spacing={5} mb={5}>
           <PlatformSelecter />
           <SortSelector />
         </HStack>
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid />
       </GridItem>
     </Grid>
   );

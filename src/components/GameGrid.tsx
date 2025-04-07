@@ -1,42 +1,38 @@
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InifiniteScroll from "react-infinite-scroll-component";
-import { GameQuery } from "../App";
 import { axiosInstance, DataFetched } from "../services/api-client";
 import { Game } from "../services/game-service";
+import useGameQueryStore from "../stores/gameQueryStore";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
-type Props = {
-  gameQuery: GameQuery;
-};
-
-const GameGrid = ({ gameQuery }: Props) => {
-  const { isLoading, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery(
-      ["games", gameQuery],
-      async ({ pageParam = 1 }) => {
-        const res = axiosInstance.get<DataFetched<Game>>("/games", {
-          params: {
-            genres: gameQuery.genreId,
-            parent_platforms: gameQuery.platformId,
-            ordering: gameQuery.sort,
-            search: gameQuery.search,
-            page: pageParam,
-            page_size: 20,
-          },
-        });
-        return res;
-      },
-      {
-        staleTime: 1000 * 1 * 60 * 30, //30 mins
-        getNextPageParam: (lastPage, allPages) => {
-          return lastPage.data.next ? allPages.length + 1 : null;
+const GameGrid = () => {
+  const { gameQuery } = useGameQueryStore();
+  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["games", gameQuery],
+    async ({ pageParam = 1 }) => {
+      const res = axiosInstance.get<DataFetched<Game>>("/games", {
+        params: {
+          genres: gameQuery.genreId,
+          parent_platforms: gameQuery.platformId,
+          ordering: gameQuery.sort,
+          search: gameQuery.search,
+          page: pageParam,
+          page_size: 20,
         },
-        keepPreviousData: true,
-      }
-    );
+      });
+      return res;
+    },
+    {
+      staleTime: 1000 * 1 * 60 * 30, //30 mins
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.data.next ? allPages.length + 1 : null;
+      },
+      keepPreviousData: true,
+    }
+  );
 
   return (
     <InifiniteScroll

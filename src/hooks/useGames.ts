@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { DataFetched } from "../services/api-client";
 import gameService, { Game } from "../services/game-service";
-import { GameQuery } from "../stores/gameQueryStore";
+import useGameQueryStore from "../stores/gameQueryStore";
 
-const useGames = (gameQuery: GameQuery) =>
+const useGames = () => {
+  const { gameQuery } = useGameQueryStore();
   useQuery<DataFetched<Game>, Error>(["games", gameQuery], () =>
     gameService.getAll({
       params: {
@@ -14,5 +15,6 @@ const useGames = (gameQuery: GameQuery) =>
       },
     })
   );
+};
 
 export default useGames;
