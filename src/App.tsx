@@ -5,15 +5,10 @@ import GenreList from "./components/GenreList";
 import Navbar from "./components/Navbar";
 import PlatformSelecter from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
-import { Platform } from "./services/platform-service";
 import useGameQueryStore from "./stores/gameQueryStore";
 
 function App() {
-  const { gameQuery, update } = useGameQueryStore();
-
-  const onSelectPlatform = (platform: Platform) => {
-    update({ platformId: platform.id });
-  };
+  const { gameQuery } = useGameQueryStore();
 
   return (
     <Grid
@@ -37,10 +32,7 @@ function App() {
       <GridItem px="10px" area={"main"}>
         <GameHeading gameQuery={gameQuery} />
         <HStack spacing={5} mb={5}>
-          <PlatformSelecter
-            onSelectPlatform={onSelectPlatform}
-            selectedPlatformId={gameQuery.platformId}
-          />
+          <PlatformSelecter />
           <SortSelector />
         </HStack>
         <GameGrid gameQuery={gameQuery} />
