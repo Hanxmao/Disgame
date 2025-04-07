@@ -8,13 +8,19 @@ export interface GameQuery {
 }
 
 interface GameQueryStore {
-    gameQuery: GameQuery
-    update: (newQuery: Partial<GameQuery>) => void
+  gameQuery: GameQuery;
+  update: (newQuery: Partial<GameQuery>) => void;
 }
 
-const useGameQueryStore = create<GameQueryStore>(set => ({
-    gameQuery:{} as GameQuery,
-    update: (newQuery)=> set((store)=>({gameQuery: {...store.gameQuery, ...newQuery}}))
-}))
+const useGameQueryStore = create<GameQueryStore>((set) => ({
+  gameQuery: {
+    genreId: null,
+    platformId: null,
+    sort: "",
+    search: "",
+  },
+  update: (newQuery) =>
+    set((store) => ({ gameQuery: { ...store.gameQuery, ...newQuery } })),
+}));
 
-export default useGameQueryStore
+export default useGameQueryStore;
