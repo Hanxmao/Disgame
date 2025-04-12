@@ -9,6 +9,7 @@ export interface Game {
   metacritic: number;
   rating_top: number;
   slug:string;
+  description_raw: string
 }
 
 export default new ApiClient<DataFetched<Game>>("/games");

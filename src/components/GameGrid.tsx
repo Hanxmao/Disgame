@@ -1,39 +1,13 @@
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import InifiniteScroll from "react-infinite-scroll-component";
-import { axiosInstance, DataFetched } from "../services/api-client";
-import { Game } from "../services/game-service";
-import useGameQueryStore from "../stores/gameQueryStore";
+import { Link } from "react-router-dom";
+import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
-import { Link } from "react-router-dom";
 
 const GameGrid = () => {
-  const { gameQuery } = useGameQueryStore();
-  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ["games", gameQuery],
-    async ({ pageParam = 1 }) => {
-      const res = axiosInstance.get<DataFetched<Game>>("/games", {
-        params: {
-          genres: gameQuery.genreId,
-          parent_platforms: gameQuery.platformId,
-          ordering: gameQuery.sort,
-          search: gameQuery.search,
-          page: pageParam,
-          page_size: 20,
-        },
-      });
-      return res;
-    },
-    {
-      staleTime: 1000 * 1 * 60 * 30, //30 mins
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.data.next ? allPages.length + 1 : null;
-      },
-      keepPreviousData: true,
-    }
-  );
+  const { isLoading, data, fetchNextPage, hasNextPage } = useGames();
 
   return (
     <InifiniteScroll

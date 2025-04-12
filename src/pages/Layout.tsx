@@ -1,14 +1,17 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import { Outlet } from 'react-router'
+import React from "react";
+import Navbar from "../components/Navbar";
+import { Outlet } from "react-router";
+import { Box } from "@chakra-ui/react";
 
 const Layout = () => {
   return (
     <>
-        <Navbar />
+      <Navbar />
+      <Box p={5}>
         <Outlet />
+      </Box>
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
