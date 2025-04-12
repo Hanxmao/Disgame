@@ -7,6 +7,7 @@ import useGameQueryStore from "../stores/gameQueryStore";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { Link } from "react-router-dom";
 
 const GameGrid = () => {
   const { gameQuery } = useGameQueryStore();
@@ -44,6 +45,7 @@ const GameGrid = () => {
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
         spacing={6}
+        p={1}
       >
         {isLoading &&
           [...Array(12)].map((_, index) => (
@@ -53,9 +55,11 @@ const GameGrid = () => {
           ))}
         {data?.pages?.map((page) =>
           page.data.results.map((game) => (
-            <GameCardContainer key={game.id}>
-              <GameCard game={game} />
-            </GameCardContainer>
+            <Link to={`/games/${game.slug}`} key={game.id}>
+              <GameCardContainer>
+                <GameCard game={game} />
+              </GameCardContainer>
+            </Link>
           ))
         )}
       </SimpleGrid>

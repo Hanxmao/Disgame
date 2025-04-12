@@ -12,7 +12,6 @@ type Props = {
 
 const GameCard = ({ game }: Props) => {
   return (
-    <>
       <Card>
         <Image src={getCroppedImageUrl(game.background_image)} height="200px" />
         <CardBody>
@@ -30,7 +29,6 @@ const GameCard = ({ game }: Props) => {
           </Heading>
         </CardBody>
       </Card>
-    </>
   );
 };
 
