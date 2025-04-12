@@ -1,6 +1,7 @@
 import { Heading, Spinner, Text } from "@chakra-ui/react";
 import { useParams } from "react-router";
 import useGame from "../hooks/useGame";
+import Collapse from "../components/Collapse";
 
 const GameDetailPage = () => {
   const { slug } = useParams();
@@ -10,7 +11,7 @@ const GameDetailPage = () => {
   return (
     <>
       <Heading>{game.name}</Heading>
-      {game.description_raw}
+      <Collapse content={game.description_raw} />
     </>
   )
 };
