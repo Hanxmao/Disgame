@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance, DataFetched } from "../services/api-client";
-import { Game } from "../services/game-service";
+import { axiosInstance } from "../services/api-client";
+import { DataFetched } from "../entites";
+import { Game } from "../entites";
 import useGameQueryStore from "../stores/gameQueryStore";
 
 const useGames = () => {
@@ -28,7 +29,7 @@ const useGames = () => {
       keepPreviousData: true,
     }
   );
-  return {isLoading, data, fetchNextPage, hasNextPage}
+  return { isLoading, data, fetchNextPage, hasNextPage };
 };
 
 export default useGames;

@@ -1,12 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-export interface DataFetched<T> {
-  count: number;
-  next?: string;
-  previous?:string;
-  results: T[];
-}
-
 export const axiosInstance = axios.create({
   baseURL: "https://api.rawg.io/api",
   params: {
@@ -30,9 +23,11 @@ class ApiClient<T> {
     return res.data;
   };
 
-  getById = async(id: string | number) =>{
-    return axiosInstance.get<T>(this.endpoint + "/" + id).then(res=>res.data)
-  }
+  getById = async (id: string | number) => {
+    return axiosInstance
+      .get<T>(this.endpoint + "/" + id)
+      .then((res) => res.data);
+  };
 
   post = async (data: T) => {
     const res = await axiosInstance.post<T>(this.endpoint, data);

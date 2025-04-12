@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { DataFetched } from "../services/api-client";
-import platformService, { Platform } from "../services/platform-service";
+import { DataFetched } from "../entites";
+import platformService from "../services/platform-service";
+import { Platform } from "../entites";
 import platforms from "../statics/platforms";
 
 const usePlatforms = () => {

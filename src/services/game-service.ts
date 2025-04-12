@@ -1,15 +1,5 @@
-import ApiClient, { DataFetched } from "./api-client";
-import { Platform } from "./platform-service";
-
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-  slug:string;
-  description_raw: string
-}
+import { Game } from "../entites";
+import ApiClient from "./api-client";
+import { DataFetched } from "../entites";
 
 export default new ApiClient<DataFetched<Game>>("/games");

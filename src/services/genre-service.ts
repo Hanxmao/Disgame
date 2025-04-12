@@ -1,11 +1,5 @@
-import ApiClient, { DataFetched } from "./api-client";
-
-export interface Genre {
-  id: number;
-  name: string;
-  slug: string;
-  games_count: number;
-  image_background: string;
-}
+import { Genre } from "../entites";
+import ApiClient from "./api-client";
+import { DataFetched } from "../entites";
 
 export default new ApiClient<DataFetched<Genre>>("/genres");
