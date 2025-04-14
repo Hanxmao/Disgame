@@ -1,35 +1,20 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../services/api-client";
-import { DataFetched } from "../entites";
-import { Game } from "../entites";
-import useGameQueryStore from "../stores/gameQueryStore";
+import { useQuery } from "@tanstack/react-query";
+import gameService from "../services/game-service";
 
-const useGames = () => {
-  const { gameQuery } = useGameQueryStore();
-  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ["games", gameQuery],
-    async ({ pageParam = 1 }) => {
-      const res = axiosInstance.get<DataFetched<Game>>("/games", {
+const useGames = (ordering?:string, page_size?:number) => {
+  return useQuery(
+    ["games", `${ordering||"no-order"}${page_size||20}`],
+    () => {
+      return gameService.getAll({
         params: {
-          genres: gameQuery.genreId,
-          parent_platforms: gameQuery.platformId,
-          ordering: gameQuery.sort,
-          search: gameQuery.search,
-          page: pageParam,
-          page_size: 20,
+          ordering: ordering || "-rating",
+          page_size: page_size ||20,
+          page:2
         },
       });
-      return res;
     },
-    {
-      staleTime: 1000 * 1 * 60 * 30, //30 mins
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.data.next ? allPages.length + 1 : null;
-      },
-      keepPreviousData: true,
-    }
+    {staleTime: 24 * 60 * 60 * 1000} // 24 hours
   );
-  return { isLoading, data, fetchNextPage, hasNextPage };
 };
 
-export default useGames;
+export default useGames

@@ -14,13 +14,15 @@
     "@emotion/styled": "^11.14.0",
     "@tanstack/react-query": "4.28",
     "@tanstack/react-query-devtools": "4.28",
+    "@types/react-image-gallery": "^1.2.4",
     "axios": "^1.7.9",
-    "framer-motion": "^12.4.2",
+    "framer-motion": "^12.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.10.0",
+    "swiper": "^11.2.6",
     "zustand": "^4.3.7"
   },
   "devDependencies": {
