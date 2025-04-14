@@ -1,13 +1,13 @@
 import { SimpleGrid, Spinner } from "@chakra-ui/react";
 import InifiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
-import useGames from "../hooks/useGames";
+import useInfiniteGames from "../hooks/useInfiniteGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
 const GameGrid = () => {
-  const { isLoading, data, fetchNextPage, hasNextPage } = useGames();
+  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteGames();
 
   return (
     <InifiniteScroll
