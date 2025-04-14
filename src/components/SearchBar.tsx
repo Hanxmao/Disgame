@@ -13,7 +13,7 @@ const SearchBar = () => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{width:200}}>
       <InputGroup>
         <InputLeftElement children={<BsSearch />} />
         <Input
