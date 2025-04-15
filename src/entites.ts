@@ -40,3 +40,12 @@ export interface DataFetched<T> {
   previous?: string;
   results: T[];
 }
+
+export interface Tag {
+  id: number
+  name: string
+  slug: string
+  games_count: number
+  image_background: string
+  description:string
+}
