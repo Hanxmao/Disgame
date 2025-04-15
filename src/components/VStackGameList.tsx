@@ -1,5 +1,6 @@
 import { Badge, Box, Heading, HStack, Image, Text, useBreakpointValue, VStack } from '@chakra-ui/react'
 import { Game } from '../entites'
+import { Link } from 'react-router-dom'
 
 type Props = {
     games: Game[]
@@ -12,7 +13,8 @@ const VStackGameList = ({games, title}:Props) => {
     <VStack align="start" spacing={4} py={8} mx={"auto"}>
           <Heading size="md">{title}</Heading>
           {games.map((game, idx) => (
-            <HStack key={idx} spacing={3} align="start" w="100%">
+              <Link to={`/games/${game.slug}`} key={idx}>
+            <HStack  spacing={3} align="start" w="100%">
               <Image
                 src={game.background_image}
                 boxSize={imageSize}
@@ -25,6 +27,7 @@ const VStackGameList = ({games, title}:Props) => {
                 </Text>
               </Box>
             </HStack>
+              </Link>
           ))}
         </VStack>
   )

@@ -7,7 +7,7 @@ const NavLinks = () => {
     const activeColor = colorMode === "light"? "black" : "gray"
     const inactiveColor = colorMode === "light"? "white" : "gray"
   return (
-    <HStack>
+    <HStack px={6} gap={4}>
         <CustomNavLink text="Discovery" link="/" />
         <CustomNavLink text="Browse" link="/games" />
         <CustomNavLink text="Event" link="/event" />
