@@ -25,14 +25,20 @@ const GenreList = () => {
       </Heading>
       <List>
         {data?.results.map((g) => (
-          <ListItem key={g.id} py={1}>
+          <ListItem key={g.id} py={"2px"}>
             <HStack
               cursor={"pointer"}
               onClick={() => {
-                update({ genreId: g.id });
+                gameQuery.genreId != g.id ? update({ genreId: g.id }): update({genreId: null})
               }}
               borderRadius={10}
+              px={1}
+              py={"2px"}
               backgroundColor={g.id === gameQuery.genreId ? "green.500" : ""}
+              _hover={{
+                transform: "scale(1.05)",
+                transition:"transform .15s ease-in"
+              }}
             >
               <Image
                 objectFit="cover"
