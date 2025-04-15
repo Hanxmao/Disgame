@@ -14,6 +14,8 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useGames from "../hooks/useGames";
+import getCroppedImageUrl from "../services/image-url";
+import { Link } from "react-router-dom";
 
 SwiperCore.use([Autoplay]);
 
@@ -42,10 +44,11 @@ const HomeBanner = () => {
       mx={"auto"}
       gap={6}
       aspectRatio="2/1"
-      py={{ base: 4, md: 16 }}
+      my={{ base: 4, md: 16 }}
       maxW={"1200px"}
     >
       {/* Left: Main Carousel */}
+      
       <Box
         flex="1"
         position="relative"
@@ -62,6 +65,7 @@ const HomeBanner = () => {
         >
           {games?.map((game, idx) => (
             <SwiperSlide key={idx}>
+              <Link to={`/games/${game.slug}`}>
               <Box
                 height={HEIGHT}
                 backgroundImage={`url(${game.background_image})`}
@@ -79,6 +83,7 @@ const HomeBanner = () => {
                   </Text>
                 </Box>
               </Box>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -104,7 +109,7 @@ const HomeBanner = () => {
                 cursor="pointer"
               >
                 <Image
-                  src={game.background_image}
+                  src={getCroppedImageUrl(game.background_image)}
                   boxSize="48px"
                   borderRadius="md"
                   objectFit="cover"
