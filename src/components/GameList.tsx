@@ -5,6 +5,7 @@ import {
   Button,
   VStack,
   TagCloseButton,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -21,16 +22,15 @@ type Props = {
 };
 
 export default function GameList({ tagName, genre}: Props) {
-  const { data: games } = useGames(undefined, 10, undefined, genre);
-
+  const { data: games, isLoading, error } = useGames(undefined, 10, undefined, genre);
+  if (error) return null
   return (
-    <>
       <Box p={4} maxW="1400px" mx="auto">
         <Text fontSize="2xl" mb={4} fontWeight="bold">
           Top Rated {tagName}
         </Text>
 
-        <Swiper
+        {isLoading?<Skeleton height={200} />:<Swiper
           slidesPerView={2.2}
           spaceBetween={20}
           navigation
@@ -74,9 +74,8 @@ export default function GameList({ tagName, genre}: Props) {
               </Link>
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper>}
         <GameSubList genre={genre} />
       </Box>
-    </>
   );
 }

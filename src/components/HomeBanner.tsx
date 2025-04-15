@@ -3,6 +3,7 @@ import {
   Flex,
   Image,
   Show,
+  Skeleton,
   Text,
   VStack,
   useColorModeValue,
@@ -34,10 +35,10 @@ const HomeBanner = () => {
   const duration = 5; // seconds
   const swiperRef = useRef<SwiperCore | null>(null);
 
-  const { data } = useGames(undefined,5,2)
+  const { data, isLoading } = useGames(undefined,5,2)
   const games = data?.results
   return (
-    <Flex
+    isLoading?<Skeleton height={HEIGHT} width={"80vw"} maxW={"1200px"} mx={"auto"} my={{ base: 4, md: 16 }} borderRadius={20}/>:<Flex
       direction={{ base: "column", md: "row" }}
       height={HEIGHT}
       width={"80vw"}
