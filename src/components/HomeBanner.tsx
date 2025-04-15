@@ -30,15 +30,24 @@ const progressAnimation = keyframes`
 const HomeBanner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const bgColor = useColorModeValue("gray.100", "gray.700");
-  const textColor = useColorModeValue("purple.900", "yellow.100");
+  const textColor = useColorModeValue("white", "yellow.100");
   const progressColor = useColorModeValue("gray.900", "white");
   const duration = 5; // seconds
   const swiperRef = useRef<SwiperCore | null>(null);
 
-  const { data, isLoading } = useGames(undefined,5,2)
-  const games = data?.results
-  return (
-    isLoading?<Skeleton height={HEIGHT} width={"80vw"} maxW={"1200px"} mx={"auto"} my={{ base: 4, md: 16 }} borderRadius={20}/>:<Flex
+  const { data, isLoading } = useGames(undefined, 5, 2);
+  const games = data?.results;
+  return isLoading ? (
+    <Skeleton
+      height={HEIGHT}
+      width={"80vw"}
+      maxW={"1200px"}
+      mx={"auto"}
+      my={{ base: 4, md: 16 }}
+      borderRadius={20}
+    />
+  ) : (
+    <Flex
       direction={{ base: "column", md: "row" }}
       height={HEIGHT}
       width={"80vw"}
@@ -50,7 +59,7 @@ const HomeBanner = () => {
       maxW={"1200px"}
     >
       {/* Left: Main Carousel */}
-      
+
       <Box
         flex="1"
         position="relative"
@@ -58,34 +67,43 @@ const HomeBanner = () => {
         mx="auto"
       >
         <Swiper
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
           spaceBetween={0}
           slidesPerView={1}
           autoplay={{ delay: duration * 1000, disableOnInteraction: false }}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          loop= {games&&games.length>1}
+          loop={games && games.length > 1}
           //Why need condition here: fix warning, since games is dynamic data and it will be 0 initially, make sure the data has been fetched then loop, otherwise get warning message
         >
           {games?.map((game, idx) => (
             <SwiperSlide key={idx}>
               <Link to={`/games/${game.slug}`}>
-              <Box
-                height={HEIGHT}
-                backgroundImage={`url(${game.background_image})`}
-                backgroundSize="cover"
-                backgroundPosition="center"
-                position="relative"
-                borderRadius={20}
-              >
-                <Box position="absolute" bottom="10" left="10" maxW="lg">
-                  <Text fontSize="3xl" fontWeight="bold" mb="2">
-                    {game.name}
-                  </Text>
-                  <Text fontSize={{ base: "sm", md: "lg" }}>
-                    {game.description_raw}
-                  </Text>
+                <Box
+                  height={HEIGHT}
+                  backgroundImage={`url(${game.background_image})`}
+                  backgroundSize="cover"
+                  backgroundPosition="center"
+                  position="relative"
+                  borderRadius={20}
+                >
+                  <Box
+                    position="absolute"
+                    bottom={0}
+                    left={0}
+                    right={0}
+                    height="70%" // The vertical area covered by the gradient
+                    bgGradient="linear(to-t, rgba(0,0,0,0.8), rgba(0,0,0,0))"
+                    zIndex={0}
+                  />
+                  <Box position="absolute" bottom="10" left="10" maxW="lg">
+                    <Text fontSize="3xl" fontWeight="bold" mb="2">
+                      {game.name}
+                    </Text>
+                    <Text fontSize={{ base: "sm", md: "lg" }}>
+                      {game.description_raw}
+                    </Text>
+                  </Box>
                 </Box>
-              </Box>
               </Link>
             </SwiperSlide>
           ))}
@@ -150,4 +168,3 @@ const HomeBanner = () => {
 };
 
 export default HomeBanner;
-
