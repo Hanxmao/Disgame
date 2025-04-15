@@ -1,21 +1,61 @@
-import { Box, Heading, HStack, VStack } from '@chakra-ui/react'
-import React from 'react'
+import { Center, Divider, HStack, SimpleGrid } from "@chakra-ui/react";
+import useGames from "../hooks/useGames";
+import VStackGameList from "./VStackGameList";
 
-const GameSubList = () => {
+type Props = {
+  genre: string;
+};
+
+const GameSubList = ({ genre }: Props) => {
+  const { data: freeGames } = useGames(
+    undefined,
+    5,
+    undefined,
+    genre,
+    `free-to-play`
+  );
+  const { data: steamGames } = useGames(
+    undefined,
+    5,
+    undefined,
+    genre,
+    `steam-cloud`
+  );
+  const { data: teamGames } = useGames(
+    undefined,
+    5,
+    undefined,
+    genre,
+    `team-based`
+  );
+
   return (
-    <>
-        <VStack>
-            <Heading >Top</Heading>
-            <HStack>
-                <Box>
-                    
-                </Box>
+    <SimpleGrid
+      // wrap="wrap"
+      gap={4}
+      px={4}
+      columns={{ base: 1, sm: 3 }}
+      height={"100%"}
+    >
+      {freeGames && (
+        <VStackGameList games={freeGames?.results} title="Free to Play" />
+      )}
+      <HStack>
+        <Center height={{base:0, md:"80%"}}>
+          <Divider orientation="vertical" borderWidth={1} />
+        </Center>
+        {steamGames && (
+          <VStackGameList games={steamGames?.results} title="Steam Cloud" />
+        )}
+        <Center height={{base:0, md:"80%"}} >
+          <Divider orientation="vertical" borderWidth={1}/>
+        </Center>
+      </HStack>
+      {teamGames && (
+        <VStackGameList games={teamGames?.results} title="Team-based" />
+      )}
+    </SimpleGrid>
+  );
+};
 
-            </HStack>
-        </VStack>
-    
-    </>
-  )
-}
-
-export default GameSubList
+export default GameSubList;

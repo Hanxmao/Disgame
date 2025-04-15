@@ -5,10 +5,10 @@ import GameList from "../components/GameList";
 const HomePage = () => {
   return (
     <>
-        <HomeBanner />
-      <GameList tagName="RPG" tags={`24`}/>
-      <GameList tagName="Open World" tags={`36`}/>
-      <GameList tagName="FPS" tags={`30`}/>
+      <HomeBanner />
+      <GameList tagName="FPS" genre={`shooter`} />
+      <GameList tagName="RPG" genre={`role-playing-games-rpg`} />
+      <GameList tagName="Adventure" genre={`adventure`} />
     </>
   );
 };
