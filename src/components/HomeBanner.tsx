@@ -8,7 +8,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SwiperCore from "swiper";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
@@ -32,6 +32,7 @@ const HomeBanner = () => {
   const textColor = useColorModeValue("purple.900", "yellow.100");
   const progressColor = useColorModeValue("gray.900", "white");
   const duration = 5; // seconds
+  const swiperRef = useRef<SwiperCore | null>(null);
 
   const { data } = useGames(undefined,5)
   const games = data?.results
@@ -56,6 +57,7 @@ const HomeBanner = () => {
         mx="auto"
       >
         <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
           spaceBetween={0}
           slidesPerView={1}
           autoplay={{ delay: duration * 1000, disableOnInteraction: false }}
@@ -99,18 +101,24 @@ const HomeBanner = () => {
           h={{ base: 0, md: HEIGHT }}
         >
           {games?.map((game, index) => (
-            <Box key={index} position="relative">
+            <Box key={index} position="relative" h={"80px"}>
               <Flex
                 align="center"
                 gap={3}
-                p={2}
+                h={"100%"}
                 borderRadius="md"
                 bg={index === activeIndex ? bgColor : "transparent"}
                 cursor="pointer"
+                onClick={() => {
+                  setActiveIndex(index);
+                  swiperRef.current?.slideToLoop(index);
+                  swiperRef.current?.autoplay?.start();
+                }}
               >
                 <Image
                   src={getCroppedImageUrl(game.background_image)}
-                  boxSize="48px"
+                  h={"80px"}
+                  w={"60px"}
                   borderRadius="md"
                   objectFit="cover"
                   aspectRatio={"square"}
