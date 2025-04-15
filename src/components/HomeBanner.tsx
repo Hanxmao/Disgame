@@ -34,7 +34,7 @@ const HomeBanner = () => {
   const duration = 5; // seconds
   const swiperRef = useRef<SwiperCore | null>(null);
 
-  const { data } = useGames(undefined,5)
+  const { data } = useGames(undefined,5,2)
   const games = data?.results
   return (
     <Flex

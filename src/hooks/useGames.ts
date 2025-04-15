@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import gameService from "../services/game-service";
 
-const useGames = (ordering:string = "-rating", page_size:number=20, page:number=2, tags?:string) => {
+const useGames = (ordering:string = "-rating", page_size:number=20, page:number=1, genres?:string, tags?:string ) => {
   return useQuery(
-    ["games", `${ordering||"no-order"}`,tags?`Tags${tags}`:'AllTags',`Size${page_size||20}`],
+    ["games", `${ordering||"no-order"}`, genres?`Genre${genres}`:"AllGenres",tags?`Tags${tags}`:'AllTags',`Size${page_size||20}`],
     () => {
       return gameService.getAll({
         params: {
-          ordering: ordering,
-          page_size: page_size,
-          page:page,
-          tags:tags,
+          ordering,
+          page_size,
+          page,
+          tags,
+          genres,
           stores:`1,2,3,5,6,11`
             // 1, //steam
             // 2, //xbox
