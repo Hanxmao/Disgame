@@ -30,7 +30,6 @@ const progressAnimation = keyframes`
 const HomeBanner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const bgColor = useColorModeValue("gray.100", "gray.700");
-  const textColor = useColorModeValue("white", "yellow.100");
   const progressColor = useColorModeValue("gray.900", "white");
   const duration = 5; // seconds
   const swiperRef = useRef<SwiperCore | null>(null);
@@ -51,7 +50,6 @@ const HomeBanner = () => {
       direction={{ base: "column", md: "row" }}
       height={HEIGHT}
       width={"80vw"}
-      color={textColor}
       mx={"auto"}
       gap={6}
       aspectRatio="2/1"

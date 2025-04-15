@@ -6,8 +6,12 @@ import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
-const GameGrid = () => {
-  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteGames();
+type Props = {
+  genre?:string
+}
+
+const GameGrid = ({genre}:Props) => {
+  const { isLoading, data, fetchNextPage, hasNextPage } = useInfiniteGames(undefined, genre);
 
   return (
     <InifiniteScroll

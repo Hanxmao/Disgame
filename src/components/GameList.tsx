@@ -6,6 +6,7 @@ import {
   VStack,
   TagCloseButton,
   Skeleton,
+  HStack,
 } from "@chakra-ui/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -26,10 +27,15 @@ export default function GameList({ tagName, genre}: Props) {
   if (error) return null
   return (
       <Box p={4} maxW="1400px" mx="auto">
+        <HStack justifyContent={"space-between"}>
+
         <Text fontSize="2xl" mb={4} fontWeight="bold">
           Top Rated {tagName}
         </Text>
-
+        <Link to={`/game-list/${genre}`}>
+        <Button colorScheme="blue" size={"sm"} px={5}>More</Button>
+        </Link>
+        </HStack>
         {isLoading?<Skeleton height={200} />:<Swiper
           slidesPerView={2.2}
           spaceBetween={20}
