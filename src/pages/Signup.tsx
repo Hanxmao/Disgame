@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../services/authService";
+import { useUserStore } from "../stores/userStore";
 
 export default function Signup() {
   const toast = useToast();
@@ -22,7 +23,8 @@ export default function Signup() {
 
   const signupMutation = useMutation({
     mutationFn: signup,
-    onSuccess: () => {
+    onSuccess: async () => {
+      await useUserStore.getState().fetchUser();
       toast({ title: "Account created!", status: "success" });
       navigate("/");
     },
@@ -85,11 +87,11 @@ export default function Signup() {
           </Button>
 
           <HStack>
-        <Text>Already have an account? </Text>
-        <Link to={"/login"}>
-          <Text color={"teal.500"}>Log In</Text>
-        </Link>
-      </HStack>
+            <Text>Already have an account? </Text>
+            <Link to={"/login"}>
+              <Text color={"teal.500"}>Log In</Text>
+            </Link>
+          </HStack>
         </VStack>
       </form>
     </Box>

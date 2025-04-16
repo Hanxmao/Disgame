@@ -49,3 +49,9 @@ export interface Tag {
   image_background: string
   description:string
 }
+
+export interface User {
+  _id: string;
+  username: string;
+  email: string;
+}

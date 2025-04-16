@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/authService";
+import { useUserStore } from "../stores/userStore";
 
 export default function Login() {
   const toast = useToast();
@@ -22,9 +23,10 @@ export default function Login() {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: async () => {
+      await useUserStore.getState().fetchUser();
       toast({ title: "Logged in!", status: "success" });
-      navigate("/dashboard");
+      navigate("/");
     },
     onError: (err: any) => {
       toast({
