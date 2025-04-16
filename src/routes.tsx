@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import BrowsePage from "./pages/BrowsePage";
+import ErrorPage from "./pages/ErrorPage";
+import GameDetailPage from "./pages/GameDetailPage";
+import GameGenre from "./pages/GameGenre";
 import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";
-import GameDetailPage from "./pages/GameDetailPage";
-import ErrorPage from "./pages/ErrorPage";
-import BrowsePage from "./pages/BrowsePage";
-import GameGenre from "./pages/GameGenre";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,8 @@ const router = createBrowserRouter([
         { path:"/games", element: <BrowsePage /> },
         { path:"/games/:slug", element: <GameDetailPage /> },
         { path:"/game-list/:genre", element: <GameGenre /> },
+        { path:"/login", element: <Login /> },
+        { path:"/sign-up", element: <Signup /> },
     ]
   },
 ]);

@@ -92,13 +92,11 @@ const HomeBanner = () => {
                     height="70%" // The vertical area covered by the gradient
                     bgGradient="linear(to-t, rgba(0,0,0,0.8), rgba(0,0,0,0))"
                     zIndex={0}
+                    borderBottomRadius={15}
                   />
                   <Box position="absolute" bottom="10" left="10" maxW="lg">
-                    <Text fontSize="3xl" fontWeight="bold" mb="2">
+                    <Text fontSize="3xl" color={"yellow.100"} fontWeight="bold" mb="2">
                       {game.name}
-                    </Text>
-                    <Text fontSize={{ base: "sm", md: "lg" }}>
-                      {game.description_raw}
                     </Text>
                   </Box>
                 </Box>
