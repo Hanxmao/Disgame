@@ -1,10 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://api.rawg.io/api",
-  params: {
-    key: "833aa126ddeb4e9bbd31731b6710b44e",
-  },
+  baseURL: "http://localhost:5001/api"
 });
 
 class ApiClient<T> {
