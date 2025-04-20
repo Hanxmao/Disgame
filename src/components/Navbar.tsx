@@ -1,9 +1,10 @@
-import { Button, HStack, Show, Text } from "@chakra-ui/react";
+import { HStack, Show, Text } from "@chakra-ui/react";
 import { FaGamepad } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
 import ColorModeSwitch from "./ColorModeSwitch";
-import SearchBar from "./SearchBar";
-import { Link, NavLink } from "react-router-dom";
+import LoginBtn from "./LoginBtn";
 import NavLinks from "./NavLinks";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   return (
@@ -19,12 +20,12 @@ const Navbar = () => {
         </HStack>
       </NavLink>
       <HStack justifyContent={"flex-start"} width={"100%"}>
-      <SearchBar />
-      <NavLinks />
+        <SearchBar />
+        <NavLinks />
       </HStack>
       <HStack>
-      <ColorModeSwitch />
-      <Link to={"/login"}><Button>Log in</Button></Link>
+        <ColorModeSwitch />
+        <LoginBtn />
       </HStack>
     </HStack>
   );
