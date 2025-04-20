@@ -4,8 +4,6 @@ import CustomNavLink from "./CustomNavLink";
 
 const NavLinks = () => {
     const { colorMode } = useColorMode()
-    const activeColor = colorMode === "light"? "black" : "gray"
-    const inactiveColor = colorMode === "light"? "white" : "gray"
   return (
     <HStack px={6} gap={4}>
         <CustomNavLink text="Discovery" link="/" />
