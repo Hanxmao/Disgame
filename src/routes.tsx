@@ -8,6 +8,7 @@ import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import User from "./pages/User";
+import EventPage from "./pages/EventPage";
 
 const router = createBrowserRouter([
   {
@@ -19,9 +20,10 @@ const router = createBrowserRouter([
         { path:"/games", element: <BrowsePage /> },
         { path:"/games/:slug", element: <GameDetailPage /> },
         { path:"/game-list/:genre", element: <GameGenre /> },
+        { path:"/event", element: <EventPage /> },
+        { path:"/user", element: <User /> },
         { path:"/login", element: <Login /> },
         { path:"/sign-up", element: <Signup /> },
-        { path:"/user", element: <User /> },
     ]
   },
 ]);
