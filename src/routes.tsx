@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import User from "./pages/User";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         { path:"/game-list/:genre", element: <GameGenre /> },
         { path:"/login", element: <Login /> },
         { path:"/sign-up", element: <Signup /> },
+        { path:"/user", element: <User /> },
     ]
   },
 ]);

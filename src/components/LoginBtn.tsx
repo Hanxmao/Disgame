@@ -8,9 +8,7 @@ const LoginBtn = () => {
         return <Button px={"31px"}><Spinner size="sm" /></Button>
     }
   return (
-    user ? <Text whiteSpace="nowrap">
-    Welcome, {user.username}
-  </Text>: <Link to={"/login"}><Button>Log in</Button></Link>
+    user ? <Link to={"/user"}><Button>{user.username}</Button></Link>: <Link to={"/login"}><Button>Log in</Button></Link>
   )
 }
 
