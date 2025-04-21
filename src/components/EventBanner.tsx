@@ -27,9 +27,10 @@ const EventBanner = () => {
   const podiumHeights = [150, 205, 125]; // 2nd, 1st, 3rd
 
   return (
-    <Flex gap={6} p={6} wrap="wrap" justify="center">
+    <Flex gap={6} p={6} wrap="wrap" justify="center" mb={"50px"}>
       {/* Event Banner */}
       <Box
+      style={{boxShadow: "0px  20px 100px purple"}}
         w={["100%", "100%", "60%"]}
         h="400px"
         bgImage="url('https://images.unsplash.com/photo-1555532686-d0fccaccadcf?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
@@ -42,12 +43,13 @@ const EventBanner = () => {
         justifyContent="center"
       >
         <Heading color="white" fontSize={["2xl", "3xl", "4xl"]}>
-          Spring Monster Hunt
+          Spring Race Master
         </Heading>
       </Box>
 
       {/* Leaderboard Podium */}
       <Card
+      style={{boxShadow: "0px  20px 100px purple"}}
         w={["100%", "100%", "35%"]}
         h="400px"
         borderRadius="xl"
