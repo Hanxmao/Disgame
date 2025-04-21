@@ -3,6 +3,7 @@ import EventBanner from '../components/EventBanner'
 import { Box } from '@chakra-ui/react'
 import Raffle from '../components/Raffle'
 import QuestList from '../components/QuestList'
+import Leaderboard from '../components/LeaderBoard'
 
 const EventPage = () => {
   return (
@@ -10,6 +11,7 @@ const EventPage = () => {
       <EventBanner />
       <Raffle />
       <QuestList />
+      <Leaderboard />
     </Box>
   )
 }
