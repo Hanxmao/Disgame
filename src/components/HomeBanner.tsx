@@ -89,7 +89,7 @@ const HomeBanner = () => {
                     bottom={0}
                     left={0}
                     right={0}
-                    height="70%" // The vertical area covered by the gradient
+                    height="70%" 
                     bgGradient="linear(to-t, rgba(0,0,0,0.8), rgba(0,0,0,0))"
                     zIndex={0}
                     borderBottomRadius={15}

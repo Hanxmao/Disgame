@@ -93,7 +93,7 @@ export default function Raffle() {
   const winners = mockDataByDate[selectedDate] || [];
 
   return (
-    <Box py={10} px={6}>
+    <Box py={10}>
       <HStack spacing={6} align="start" justifyContent={"space-between"}>
         <HStack gap={5}>
         <Heading size="lg" bgGradient="linear(to-r, #7928CA, #FF0080)"  bgClip="text">Raffle</Heading>
@@ -107,6 +107,7 @@ export default function Raffle() {
         <Countdown target={new Date(Date.now() + 3600000).toISOString()} />
        
       </HStack>
+      <Text fontSize={"lg"} mt={4}>Complete quests to win raffle tickets!</Text>
 
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
