@@ -1,23 +1,16 @@
-import React from 'react'
+import { Box } from '@chakra-ui/react'
 import EventBanner from '../components/EventBanner'
-import { Box, Spinner } from '@chakra-ui/react'
-import Raffle from '../components/Raffle'
-import QuestList from '../components/QuestList'
 import Leaderboard from '../components/LeaderBoard'
+import QuestList from '../components/QuestList'
+import Raffle from '../components/Raffle'
 import useActiveEvent from '../hooks/useActiveEvent'
-import useLeaderboard from '../hooks/useLeaderboard'
-import useTop3 from '../hooks/useTop3'
 
 const EventPage = () => {
-  const { data: event, isLoading } = useActiveEvent();
-  
-  if (isLoading || !event) return <Spinner />;
-  const { data: top3Data } = useTop3(event?._id);
-  const { data: leaderboardData } = useLeaderboard(event?._id);
-
+  const { data: event, isLoading: loadingEvent } = useActiveEvent();
+  if(!event) return null
   return (
     <Box  maxW={"1400px"} mx={"auto"}>
-      <EventBanner />
+      <EventBanner event={event} loadingEvent={loadingEvent} />
       <Raffle />
       <QuestList />
       <Leaderboard />

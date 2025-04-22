@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import eventService, { Event } from "../services/eventService";
+import { fetchActiveEvent } from "../services/eventService";
 
 const useActiveEvent = () => {
-  return useQuery<Event>({
+  return useQuery({
     queryKey: ["activeEvent"],
-    queryFn: () => eventService.getById(""), // GET /events/active
+    queryFn: fetchActiveEvent,
     staleTime: 1000 * 60 * 10,
   });
 };
 
-export default useActiveEvent;
+export default useActiveEvent

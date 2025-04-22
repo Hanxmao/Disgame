@@ -1,4 +1,4 @@
-import ApiClient from "./api-client";
+import { axiosInstance } from "./api-client";
 
 export interface Event {
   _id: string;
@@ -6,8 +6,7 @@ export interface Event {
   description: string;
   startDate: string;
   endDate: string;
+  bgImage: string;
 }
 
-const eventService = new ApiClient<Event>("/events/active");
-
-export default eventService;
+export const fetchActiveEvent = () => axiosInstance.get<Event>("/events/active/").then(res => res.data);
