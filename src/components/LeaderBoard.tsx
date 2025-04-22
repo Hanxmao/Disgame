@@ -4,6 +4,7 @@ import {
     Button,
     Heading,
     HStack,
+    Spinner,
     Table,
     Tbody,
     Td,
@@ -15,93 +16,91 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { Event } from "../services/eventService";
+import { useUserStore } from "../stores/userStore";
+import useLeaderboard from "../hooks/useLeaderboard";
 
-interface UserEntry {
-  id: string;
-  name: string;
-  avatar: string;
-  tickets: number;
-}
 
-const currentUserId = "u5";
+type Props = {
+  event: Event;
+  loadingEvent: boolean;
+};
 
-const mockLeaderboard: UserEntry[] = Array.from({ length: 27 }, (_, i) => ({
-  id: `u${i + 1}`,
-  name: `Player ${i + 1}`,
-  avatar: `/mock/avatars/avatar${(i % 8) + 1}.png`,
-  tickets: Math.floor(Math.random() * 1000),
-})).sort((a, b) => b.tickets - a.tickets);
+export default function Leaderboard({ event, loadingEvent }: Props) {
+  const { user } = useUserStore();
+  const [page, setPage] = useState(1);
+  const limit = 10;
 
-mockLeaderboard[4].id = currentUserId; // Inject current user in top 5
-mockLeaderboard[4].name = "YOU";
-
-export default function Leaderboard() {
-  const [page, setPage] = useState(0);
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(mockLeaderboard.length / itemsPerPage);
-  const start = page * itemsPerPage;
-  const current = mockLeaderboard.slice(start, start + itemsPerPage);
+  const {
+    data: leaderboard,
+    isLoading: loadingLeaderboard,
+  } = useLeaderboard(event?._id, page, limit);
 
   const highlightBg = useColorModeValue("purple.50", "purple.900");
+
+  if (loadingEvent || loadingLeaderboard) return <Spinner />;
 
   return (
     <Box mx="auto" py={10}>
       <VStack spacing={4} align="start">
         <HStack w={"full"} justifyContent={"space-between"}>
-          <Heading size="lg">Spring Ticket Challenge</Heading>
-          <Text fontWeight={"bold"} color="yellow.500">Ends June 7, 2024</Text>
+          <Heading size="lg">{event?.title || "Event Leaderboard"}</Heading>
+          <Text fontWeight={"bold"} color="yellow.500">
+            Ends {new Date(event?.endDate || "").toLocaleDateString()}
+          </Text>
         </HStack>
 
         <HStack spacing={4}>
           <Button
-            onClick={() => setPage((prev) => Math.max(0, prev - 1))}
-            isDisabled={page === 0}
+            onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+            isDisabled={page === 1}
             size="sm"
           >
             Prev
           </Button>
           <Text fontSize="sm">
-            Page {page + 1} of {totalPages}
+            Page {page} of {Math.ceil((leaderboard?.total || 1) / limit)}
           </Text>
           <Button
             onClick={() =>
-              setPage((prev) => Math.min(totalPages - 1, prev + 1))
+              setPage((prev) =>
+                Math.min(Math.ceil((leaderboard?.total || 1) / limit), prev + 1)
+              )
             }
-            isDisabled={page >= totalPages - 1}
+            isDisabled={page >= Math.ceil((leaderboard?.total || 1) / limit)}
             size="sm"
           >
             Next
           </Button>
         </HStack>
 
-        <Box w="full"  borderRadius="lg" boxShadow="md">
+        <Box w="full" borderRadius="lg" boxShadow="md">
           <Table variant="simple">
             <Thead>
-              <Tr >
+              <Tr>
                 <Th>Rank</Th>
                 <Th>User</Th>
                 <Th isNumeric>Tickets</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {current.map((user, index) => {
-                const globalRank = start + index + 1;
-                const isCurrentUser = user.id === currentUserId;
+              {leaderboard?.data?.map((userEntry, index) => {
+                const globalRank = (page - 1) * limit + index + 1;
+                const isCurrentUser = userEntry.userId === user?._id;
                 return (
                   <Tr
-                    key={user.id}
+                    key={userEntry.userId}
                     bg={isCurrentUser ? highlightBg : undefined}
                     transition="all 0.2s"
-                    
                   >
                     <Td fontWeight="bold">#{globalRank}</Td>
                     <Td>
                       <HStack>
-                        <Avatar size="sm" name={user.name} src={user.avatar} />
-                        <Text>{isCurrentUser ? "YOU" : user.name}</Text>
+                        <Avatar size="sm" name={userEntry.username} src={userEntry.avatarUrl} />
+                        <Text>{isCurrentUser ? "YOU" : userEntry.username}</Text>
                       </HStack>
                     </Td>
-                    <Td isNumeric>{user.tickets}</Td>
+                    <Td isNumeric>{userEntry.tickets}</Td>
                   </Tr>
                 );
               })}
@@ -112,3 +111,4 @@ export default function Leaderboard() {
     </Box>
   );
 }
+

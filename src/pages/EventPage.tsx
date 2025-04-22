@@ -13,7 +13,7 @@ const EventPage = () => {
       <EventBanner event={event} loadingEvent={loadingEvent} />
       <Raffle event={event} loadingEvent={loadingEvent}/>
       <QuestList event={event} loadingEvent={loadingEvent}/>
-      <Leaderboard />
+      <Leaderboard event={event} loadingEvent={loadingEvent}/>
     </Box>
   )
 }
