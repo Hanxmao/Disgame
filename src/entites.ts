@@ -50,34 +50,9 @@ export interface Tag {
   description:string
 }
 
-
-
 export interface User {
   _id: string;
   username: string;
   email: string;
-  avatar: string;
-}
-
-export interface Product {
-  id: string;
-  title: string;
-  imageUrl: string;
-}
-
-export interface Prize {
-  rank: number;
-  product_id: string;
-}
-
-export interface Ticket {
-  id: string;
-  user_id: string;
-}
-
-export interface Winner {
-  ticket_id: string;
-  user: User;
-  prize: Prize;
-  product: Product;
+  avatarUrl: string;
 }
