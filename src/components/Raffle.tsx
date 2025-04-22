@@ -1,6 +1,6 @@
 // === FRONTEND ===
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Heading,
@@ -18,25 +18,30 @@ import {
   ModalBody,
   useDisclosure,
   Select,
-  Spinner
-} from '@chakra-ui/react';
-import Countdown from './Countdown';
-import ConfettiBurst from './ConfettiBurst';
-import useActiveEvent  from '../hooks/useActiveEvent';
-import { useDrawWinners } from '../hooks/useDrawWinners';
+  Spinner,
+  Show,
+} from "@chakra-ui/react";
+import Countdown from "./Countdown";
+import ConfettiBurst from "./ConfettiBurst";
+import useActiveEvent from "../hooks/useActiveEvent";
+import { useDrawWinners } from "../hooks/useDrawWinners";
+import usePrizePool from "../hooks/usePrizePool";
 
 export default function Raffle() {
   const { data: event, isLoading: loadingEvent } = useActiveEvent();
+  const { data: prizePool } = usePrizePool(event?._id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isPrizeOpen,
     onOpen: onPrizeOpen,
-    onClose: onPrizeClose
+    onClose: onPrizeClose,
   } = useDisclosure();
 
   const { data, isLoading: loadingDraws } = useDrawWinners(event?._id);
   const draws = data?.draws || [];
   const [selectedDrawId, setSelectedDrawId] = useState<string | undefined>();
+
+  console.log("data", data);
 
   const selectedDraw = draws.find((d) => d.drawId === selectedDrawId);
   const winners = selectedDraw?.winners || [];
@@ -45,15 +50,34 @@ export default function Raffle() {
     <Box py={10}>
       <HStack spacing={6} align="start" justifyContent="space-between">
         <HStack gap={5}>
-          <Heading size="lg" bgGradient="linear(to-r, #7928CA, #FF0080)" bgClip="text">
+          <Heading
+            size="lg"
+            bgGradient="linear(to-r, #7928CA, #FF0080)"
+            bgClip="text"
+          >
             Raffle
           </Heading>
-          <Button onClick={onOpen} colorScheme="teal">
-            Daily Winners
-          </Button>
-          <Button colorScheme="gray" variant="outline" onClick={onPrizeOpen}>
-            See Prizes
-          </Button>
+          <HStack gap={5}>
+  {/* Text buttons on md+ */}
+  <Show above="md">
+    <Button onClick={onOpen} colorScheme="teal">
+      Daily Winners
+    </Button>
+    <Button colorScheme="gray" variant="outline" onClick={onPrizeOpen}>
+      See Prizes
+    </Button>
+  </Show>
+
+  {/* Icon buttons below md */}
+  <Show below="md">
+    <Button onClick={onOpen} colorScheme="teal" p={2}>
+    🏆
+    </Button>
+    <Button onClick={onPrizeOpen} colorScheme="gray" variant="outline" p={2}>
+    👑
+    </Button>
+  </Show>
+</HStack>
         </HStack>
         <Countdown target={new Date(Date.now() + 3600000).toISOString()} />
       </HStack>
@@ -79,7 +103,9 @@ export default function Raffle() {
                 >
                   {draws.map((draw) => (
                     <option key={draw.drawId} value={draw.drawId}>
-                      {`${draw.drawOrder}${getOrdinalSuffix(draw.drawOrder)} Draw`}
+                      {`${draw.drawOrder}${getOrdinalSuffix(
+                        draw.drawOrder
+                      )} Draw`}
                     </option>
                   ))}
                 </Select>
@@ -88,8 +114,6 @@ export default function Raffle() {
                     <HStack
                       key={ticket_id}
                       w="full"
-                      p={3}
-                      bg="gray.50"
                       borderRadius="md"
                       boxShadow="sm"
                       justify="space-between"
@@ -100,8 +124,15 @@ export default function Raffle() {
                       </HStack>
                       <Text fontWeight="bold">#{prize.rank}</Text>
                       <HStack>
-                        <Image boxSize="36px" src={product.imageUrl} alt={product.title} borderRadius="md" />
-                        <Text>{product.title} ×{prize.quantity}</Text>
+                        <Image
+                          boxSize="36px"
+                          src={product.imageUrl}
+                          alt={product.title}
+                          borderRadius="md"
+                        />
+                        <Text>
+                          {product.title} ×{prize.quantity}
+                        </Text>
                       </HStack>
                     </HStack>
                   ))}
@@ -119,8 +150,27 @@ export default function Raffle() {
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} py={2}>
-              {/* Render actual prize pool if needed */}
-              <Text>Coming soon...</Text>
+              {prizePool?.map((p) => (
+                <HStack
+                  key={`${p.rank}-${p.product.id}`}
+                  w="full"
+                  borderRadius="md"
+                  justify="space-between"
+                >
+                  <Text w={"60px"}>Rank {p.rank}</Text>
+                  <HStack>
+                    <Image
+                      boxSize="36px"
+                      src={p.product.imageUrl}
+                      alt={p.product.title}
+                      borderRadius="md"
+                    />
+                    <Text>{p.product.title}</Text>
+                  </HStack>
+                  
+                  <Text>×{p.quantity}</Text>
+                </HStack>
+              ))}
             </VStack>
           </ModalBody>
         </ModalContent>
@@ -134,5 +184,3 @@ function getOrdinalSuffix(n: number): string {
     v = n % 100;
   return s[(v - 20) % 10] || s[v] || s[0];
 }
-
-
