@@ -1,4 +1,5 @@
-import ApiClient from "./api-client";
+import { axiosInstance } from "./api-client";
+
 
 export interface LeaderboardEntry {
   userId: string;
@@ -14,6 +15,11 @@ export interface LeaderboardResponse {
   limit: number;
 }
 
-const leaderboardService = new ApiClient<LeaderboardResponse>("/leaderboard");
 
-export default leaderboardService;
+export const fetchLeaderboard = (eventId: string, page = 1, limit = 10) => {
+  return axiosInstance
+    .get<LeaderboardResponse>(`/leaderboard/${eventId}`, {
+      params: { page, limit },
+    })
+    .then((res) => res.data);
+};
