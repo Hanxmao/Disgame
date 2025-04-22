@@ -26,9 +26,14 @@ import ConfettiBurst from "./ConfettiBurst";
 import useActiveEvent from "../hooks/useActiveEvent";
 import { useDrawWinners } from "../hooks/useDrawWinners";
 import usePrizePool from "../hooks/usePrizePool";
+import { Event } from "../services/eventService";
 
-export default function Raffle() {
-  const { data: event, isLoading: loadingEvent } = useActiveEvent();
+type Props = {
+  event: Event
+  loadingEvent: boolean
+}
+
+export default function Raffle({event,loadingEvent}:Props) {
   const { data: prizePool } = usePrizePool(event?._id);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {

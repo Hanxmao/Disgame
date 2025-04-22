@@ -11,8 +11,8 @@ const EventPage = () => {
   return (
     <Box  maxW={"1400px"} mx={"auto"}>
       <EventBanner event={event} loadingEvent={loadingEvent} />
-      <Raffle />
-      <QuestList />
+      <Raffle event={event} loadingEvent={loadingEvent}/>
+      <QuestList event={event} loadingEvent={loadingEvent}/>
       <Leaderboard />
     </Box>
   )
