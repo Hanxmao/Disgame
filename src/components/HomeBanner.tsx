@@ -65,11 +65,11 @@ const HomeBanner = () => {
         mx="auto"
       >
         <Swiper
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
+          onSwiper={(swiper: SwiperCore) => (swiperRef.current = swiper)}
           spaceBetween={0}
           slidesPerView={1}
           autoplay={{ delay: duration * 1000, disableOnInteraction: false }}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          onSlideChange={(swiper:SwiperCore) => setActiveIndex(swiper.realIndex)}
           loop={games && games.length > 1}
           //Why need condition here: fix warning, since games is dynamic data and it will be 0 initially, make sure the data has been fetched then loop, otherwise get warning message
         >
