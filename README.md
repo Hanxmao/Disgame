@@ -71,17 +71,13 @@ cd disgame
 npm install
 ```
 
----
-
-## 🔑 Environment Variables
+### 🔑 Environment Variables
 
 ```bash
 VITE_API_URL=https://disgame-be.onrender.com/api
 ```
 
----
-
-## ▶️ Run Locally
+### ▶️ Run Locally
 
 ```bash
 npm run dev
