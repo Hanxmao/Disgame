@@ -1,27 +1,33 @@
 # 🎮 DisGame – Game Discovery & Daily Raffle App
 
-DisGame is a web application that helps users discover new games and win daily prizes through a quest-and-ticket raffle system. Users participate in event-based quests, earn tickets, and enter daily draws to win prizes.
+_DisGame_ is a self-initiated personal project designed to explore full-stack web development and interactive app experiences. It combines game discovery with a ticket-based daily raffle system for fun, learning, and creative experimentation.
+
+This project is not affiliated with or intended for commercial use.
 
 ---
 
 ## 🚀 Features
 
 ### 🎯 Game Discovery
+
 - Browse a curated list of games via RAWG API
 - Filter by genre, tags, or rating
 - View detailed game information
 
 ### 🏆 Event & Quest System
+
 - Users join scheduled events
 - Complete quests to earn tickets
 - Leaderboard to track top participants
 
 ### 🎟️ Raffle Draws
+
 - Daily raffle draws using collected tickets
 - Multiple prize tiers (1st place, 2nd place, etc.)
 - Transparent winner list by date and draw number
 
 ### 💬 Community Features (Coming Soon)
+
 - Circles for discussion and project sharing
 - Post types: Questions, Reviews, Tutorials, and more
 
@@ -30,6 +36,7 @@ DisGame is a web application that helps users discover new games and win daily p
 ## 🧱 Tech Stack
 
 ### Frontend
+
 - **React + TypeScript**
 - **React Query** for data fetching and caching
 - **Zustand** for global state management
@@ -38,6 +45,7 @@ DisGame is a web application that helps users discover new games and win daily p
 - **Vercel** for frontend deployment
 
 ### Backend(different repo)
+
 - **Node.js + Express**
 - **MongoDB + Mongoose** for data modeling
 - **Render** for backend deployment (or local for dev)
@@ -48,6 +56,7 @@ DisGame is a web application that helps users discover new games and win daily p
 ## 🛠️ Setup Instructions
 
 ### 🔧 Prerequisites
+
 - Node.js (v18+ recommended)
 - MongoDB Atlas or local MongoDB instance
 
@@ -60,7 +69,28 @@ cd disgame
 
 # Install dependencies
 npm install
+```
 
-#Add environment variables
-#.env
-VITE_API_BASE_URL=https://disgame-be.onrender.com/api
+---
+
+## 🔑 Environment Variables
+
+```bash
+VITE_API_URL=https://disgame-be.onrender.com/api
+```
+
+---
+
+## ▶️ Run Locally
+
+```bash
+npm run dev
+```
+
+---
+
+## 🌐 Deployment
+
+Frontend: [https://disgame.vercel.app](https://disgame.vercel.app)
+
+Backend: [https://disgame-be.onrender.com](https://disgame-be.onrender.com/api)
