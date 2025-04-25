@@ -4,6 +4,7 @@ import {
   Progress,
   Skeleton,
   Text,
+  useColorModeValue,
   VStack
 } from "@chakra-ui/react";
 import "swiper/css";
@@ -12,6 +13,8 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useQuestProgress from "../hooks/useQuestProgress";
 import { Event } from "../services/eventService";
+import { useUserStore } from "../stores/userStore";
+import LoginBtn from "./LoginBtn";
 
 type Props = {
   event: Event
@@ -19,6 +22,28 @@ type Props = {
 }
 
 export default function QuestList({event,loadingEvent}:Props) {
+  const {user} = useUserStore()
+  const bgColor = useColorModeValue("gray.200", "gray.700");
+  if(!user){
+    return(
+      <Box
+      h={200}
+      // bg={bgColor}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      borderRadius={10}
+    >
+      <Text fontWeight="medium" mb={2}>
+        Log in to check the Quests
+      </Text>
+      <LoginBtn />
+    </Box>
+    )
+  }
+
+
   const {
     data: quests,
     isLoading: loadingQuests,
