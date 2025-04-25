@@ -89,4 +89,4 @@ npm run dev
 
 Frontend: [https://disgame.vercel.app](https://disgame.vercel.app)
 
-Backend: [https://disgame-be.onrender.com](https://disgame-be.onrender.com/api)
+Backend: [https://disgame-be.onrender.com](https://disgame-be.onrender.com)
