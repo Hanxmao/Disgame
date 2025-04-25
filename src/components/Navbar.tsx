@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import Icon from "../assets/logo.png";
+import Icon from "/logo.png";
 import ColorModeSwitch from "./ColorModeSwitch";
 import CustomNavLink from "./CustomNavLink";
 import LoginBtn from "./LoginBtn";
