@@ -8,9 +8,10 @@ import {
   Heading,
   Input,
   SimpleGrid,
+  Spinner,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "../services/api-client";
 import { useUserStore } from "../stores/userStore";
 import { useNavigate } from "react-router";
@@ -22,6 +23,9 @@ const avatarOptions = Array.from(
 
 export default function EditUserPage() {
   const { user, setUser } = useUserStore();
+
+
+
   const toast = useToast();
   const navigate = useNavigate()
 
@@ -66,6 +70,16 @@ export default function EditUserPage() {
       setLoading(false);
     }
   };
+
+
+useEffect(() => {
+    if (user) {
+      setUsername(user.username);
+      setSelectedAvatar(user.avatarUrl);
+    }
+  }, [user]);
+
+  if (!user) return <Spinner />;
 
   return (
     <Box maxW="600px" mx="auto" mt={10}>
